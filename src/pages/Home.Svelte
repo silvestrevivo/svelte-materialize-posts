@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import PostForm from "../components/PostForm.svelte";
 
   const apiBaseUrl =
     "https://ndb99xkpdk.execute-api.eu-west-2.amazonaws.com/dev";
@@ -31,6 +32,11 @@
   }
 </style>
 
+<div class="row">
+  <div class="col s6">
+    <PostForm />
+  </div>
+</div>
 <div class="row">
   {#each posts as post}
     <div class="col s6">
