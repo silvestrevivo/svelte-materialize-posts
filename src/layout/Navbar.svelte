@@ -5,7 +5,9 @@
 <nav>
   <div class="nav-wrapper">
     <div class="container">
-      <Link to="/" class="brand-logo">Svelte Tutorial</Link>
+      <Link to="/">
+        <span class="brand-logo">Svelte Tutorial</span>
+      </Link>
       <ul id="nav-mobile" class="right">
         <li>
           <Link to="/">Home</Link>
@@ -15,6 +17,5 @@
         </li>
       </ul>
     </div>
-
   </div>
 </nav>

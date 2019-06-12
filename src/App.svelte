@@ -7,8 +7,6 @@
   import Navbar from "./layout/Navbar.svelte";
   import Home from "./pages/Home.svelte";
   import About from "./pages/About.svelte";
-
-  export let name;
 </script>
 
 <Router>
