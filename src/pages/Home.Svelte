@@ -6,6 +6,11 @@
     "https://ndb99xkpdk.execute-api.eu-west-2.amazonaws.com/dev";
 
   let posts = [];
+  let editingPost = {
+    body: "",
+    title: "",
+    id: null
+  };
 
   onMount(async () => {
     const res = await fetch(`${apiBaseUrl}/posts`);
@@ -14,15 +19,32 @@
 
   function postCreated(e) {
     e.preventDefault();
-    posts = [e.detail, ...posts];
+    if (posts.find(p => p.id === e.detail.id)) {
+      const index = posts.findIndex(p => p.id === e.detail.id);
+      let postsUpdated = posts;
+      postsUpdated.splice(index, 1, e.detail);
+      posts = postsUpdated;
+    } else {
+      posts = [e.detail, ...posts];
+    }
+
+    editingPost = {
+      body: "",
+      title: "",
+      id: null
+    };
   }
 
   function editPost(post) {
-    console.log("post", post);
+    editingPost = post;
   }
 
-  function deletePost(post) {
-    console.log("post", post);
+  function deletePost(id) {
+    fetch(`${apiBaseUrl}/post/${id}`, {
+      method: "DELETE"
+    })
+      .then(res => res.json())
+      .then(() => (posts = posts.filter(p => p.id !== id)));
   }
 </script>
 
@@ -39,7 +61,7 @@
 
 <div class="row">
   <div class="col s6">
-    <PostForm on:postCreated={postCreated} />
+    <PostForm on:postCreated={postCreated} {editingPost} />
   </div>
 </div>
 <div class="row">
