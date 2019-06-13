@@ -11,6 +11,7 @@
     title: "",
     id: null
   };
+  let postLimit = 6;
 
   onMount(async () => {
     const res = await fetch(`${apiBaseUrl}/posts`);
@@ -46,6 +47,16 @@
       .then(res => res.json())
       .then(() => (posts = posts.filter(p => p.id !== id)));
   }
+
+  function setLimit() {
+    if (postLimit) {
+      fetch(`${apiBaseUrl}/posts/${postLimit}`)
+        .then(res => res.json())
+        .then(postData => {
+          posts = postData;
+        });
+    }
+  }
 </script>
 
 <style>
@@ -62,6 +73,13 @@
 <div class="row">
   <div class="col s6">
     <PostForm on:postCreated={postCreated} {editingPost} />
+  </div>
+  <div class="col s3" style="margin: 50px">
+    <p>Limit number of posts</p>
+    <input type="number" bind:value={postLimit} />
+    <button on:click={setLimit} class="waves-effect waves-light btn">
+      Set
+    </button>
   </div>
 </div>
 <div class="row">
