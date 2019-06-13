@@ -1,4 +1,7 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
   let title = "";
   let body = "";
   let loading = false;
@@ -24,6 +27,7 @@
     title = "";
     body = "";
     loading = false;
+    dispatch("postCreated", post);
   }
 </script>
 

@@ -12,6 +12,11 @@
     posts = await res.json();
   });
 
+  function postCreated(e) {
+    e.preventDefault();
+    posts = [e.detail, ...posts];
+  }
+
   function editPost(post) {
     console.log("post", post);
   }
@@ -34,7 +39,7 @@
 
 <div class="row">
   <div class="col s6">
-    <PostForm />
+    <PostForm on:postCreated={postCreated} />
   </div>
 </div>
 <div class="row">
